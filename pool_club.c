@@ -23,7 +23,7 @@ void menuPiscina(void);
 void listarPiscinas(void);
 void buscarCadastro(void);
 //void editarCadastro();
-//void excluirCadastro();
+void excluirCadastro(void);
 
 typedef struct {
     char nome[MAX_STR_CAD];
@@ -36,6 +36,7 @@ typedef struct {
 
 usuario cliente[MAX_CAD];
 int qtdCadastro = 0;
+
 
 int main () {
     setlocale(LC_ALL, "Portuguese");
@@ -75,7 +76,7 @@ int main () {
                 break;
             case 7:
                 system("cls");
-//                excluirCadastro();
+                excluirCadastro();
                 break;
             case 8:
                 system("cls");
@@ -276,8 +277,10 @@ void listarPiscinas(void){
 }
 
 void buscarCadastro(void) {
-    char busca[12];
+
     int valid = 0;
+    char busca[12];
+
 
     //Buscar por CPF ou Matrícula
     printf("Informe o CPF ou matrícula do cliente (informe apenas números): ");
@@ -316,4 +319,42 @@ void buscarCadastro(void) {
     }
     system("pause");
     system("cls");
+}
+
+void excluirCadastro(void) {
+
+    char busca[12];
+    int valid = 0;
+
+    printf("Informe o CPF ou matrícula do cliente (informe apenas números): ");
+    entradaString(busca, sizeof(busca));
+    system("cls");
+    int tam = strlen(busca);
+
+    if (tam == 11) {
+        for (int i = 0; i < qtdCadastro; ++i) {
+            if (strcmp(busca, cliente[i].cpf) == 0) {
+                cliente[i] = cliente[i + 1];
+                printf("Cadastro excluido com sucesso...\n");
+                valid = 1;
+                qtdCadastro--;
+            }
+            if (valid == 0) {
+                printf("CPF invalido...");
+            }
+        }
+    }else if (tam == 7) {
+        for (int i = 0; i < qtdCadastro; ++i) {
+            if (atoi(busca) == cliente[i].matricula) {
+                cliente[i] = cliente[i + 1];
+                printf("Cadastro excluido com sucesso...\n");
+                valid = 1;
+                qtdCadastro--;
+            }
+            if (valid == 0) {
+                printf("Matricula invalida...");
+            }
+
+        }
+    }
 }
