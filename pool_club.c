@@ -22,7 +22,7 @@ void listarAtletas(void);
 void menuPiscina(void);
 void listarPiscinas(void);
 void buscarCadastro(void);
-//void editarCadastro();
+void editarCadastro();
 void excluirCadastro(void);
 
 typedef struct {
@@ -60,7 +60,7 @@ int main () {
                 break;
             case 3:
                 system("cls");
-//                editarCadastro();
+                editarCadastro();
                 break;
             case 4:
                 system("cls");
@@ -221,6 +221,7 @@ void listarPiscinas(void){
 
         switch (opcao) {
             case 1:
+                system("cls");
                 printf("\t*****************************************************************\n");
                 printf("\tPiscina - 0,40m  -> menor que 7 anos ou maior que 18 anos        \n");
                 printf("\t*****************************************************************\n");
@@ -230,8 +231,10 @@ void listarPiscinas(void){
                         printf("\tidade: %d\n", cliente[i].idade);
                     }
                 }
+
                 break;
             case 2:
+                system("cls");
                 printf("\t*********************************************\n");
                 printf("\tPiscina - 1,50m -> maior que 7 anos          \n");
                 printf("\t*********************************************\n");
@@ -243,6 +246,7 @@ void listarPiscinas(void){
                 }
                 break;
             case 3:
+                system("cls");
                 printf("\t********************************************\n");
                 printf("\tPiscina - 2,50m  ->   maior que 18 anos     \n");
                 printf("\t********************************************\n");
@@ -254,6 +258,7 @@ void listarPiscinas(void){
                 }
                 break;
             case 4:
+                system("cls");
                 printf("\t**************************************\n");
                 printf("\tPiscina - 3,00m  ->  Atletas          \n");
                 printf("\t**************************************\n");
@@ -266,7 +271,6 @@ void listarPiscinas(void){
                 }
                 break;
             case 5:
-                menu();
                 break;
             default:
                 system("cls");
@@ -320,7 +324,54 @@ void buscarCadastro(void) {
     system("pause");
     system("cls");
 }
+void editarCadastro(){
 
+    char busca[12];
+    int valid = 0;
+    int op ;
+
+    printf("Informe o CPF ou matrícula do cliente (informe apenas números): ");
+    entradaString(busca, sizeof(busca));
+    system("cls");
+    int tam = strlen(busca);
+
+    if (tam == 11) {
+        for (int i = 0; i < qtdCadastro; ++i) {
+            if (strcmp(busca, cliente[i].cpf) == 0) {
+                printf("Quais dados do cadastro você deseja alterar ?\n");
+                printf("1-Deseja alterar o nome.\n2-Deseja alterar CPF.\n3-Deseja alterar idade.\n4-Voltar ao menu inicial.\n");
+                scanf("%d",&op);
+                switch (op) {
+                    case 1:
+                        scanf("%s",cliente[i].nome);
+                        system("cls");
+                        break;
+                    case 2:
+                        scanf("%s",cliente[i].cpf);
+                        system("cls");
+                        break;
+                    case 3:
+                        scanf("%d",&cliente[i].idade);
+                        system("cls");
+                        break;
+                    case 4:
+                        break;
+                    default:
+                        printf("Opção invalida !!!");
+
+                }
+                valid = 1;
+
+            }
+
+
+        }if(valid == 0){
+            printf("CPF não encontrado");
+        }
+
+
+    }
+}
 void excluirCadastro(void) {
 
     char busca[12];
@@ -339,9 +390,9 @@ void excluirCadastro(void) {
                 valid = 1;
                 qtdCadastro--;
             }
-            if (valid == 0) {
-                printf("CPF invalido...");
-            }
+        if (valid == 0) {
+           printf("CPF invalido...\n");
+        }
         }
     }else if (tam == 7) {
         for (int i = 0; i < qtdCadastro; ++i) {
@@ -351,9 +402,9 @@ void excluirCadastro(void) {
                 valid = 1;
                 qtdCadastro--;
             }
-            if (valid == 0) {
-                printf("Matricula invalida...");
-            }
+        if (valid == 0) {
+            printf("Matricula invalida...\n");
+        }
 
         }
     }
